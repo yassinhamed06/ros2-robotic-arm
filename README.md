@@ -164,3 +164,37 @@ and attempts to reconnect if the USB cable is disconnected.
 The project demonstrates the integration of ROS 2 simulation,
 robot visualization, graphical control, and physical servo
 control through Arduino serial communication.
+## 16. Communication Protocol
+
+Transport: USB Serial using PySerial.
+
+Baud rate: 9600.
+
+Message format: CSV (Comma-Separated Values).
+
+Format:
+
+angle1,angle2,duration_ms
+
+Example:
+
+119,61,5000
+
+This command moves:
+- Servo 1 to 119 degrees.
+- Servo 2 to 61 degrees.
+- Both servos over a duration of 5000 milliseconds.
+
+Each message ends with a newline character.
+
+Arduino responses:
+- OK: Valid command accepted.
+- ERROR: Invalid command rejected.
+
+The ROS 2 serial bridge converts radians to degrees
+using the following equation:
+
+Servo angle = (Radians * 180 / pi) + 90
+
+Servo angles are limited to 45-135 degrees.
+Movement duration is limited to 1000-10000 ms.
